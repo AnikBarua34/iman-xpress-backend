@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
+   
+  
     name: {
         type: String,
         required: true
@@ -9,12 +11,13 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique:true
+        unique: true
     },
     password: {
         type: String,
         required: true
     },
+    
     date: {
         type: Date,
         default: Date.now
@@ -23,3 +26,5 @@ const UserSchema = new Schema({
 
 const merchantUser = mongoose.model('Merchantuser', UserSchema);
 module.exports = merchantUser;
+
+
