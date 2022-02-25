@@ -7,6 +7,7 @@ const connecttoMongo = require("./db")
 connecttoMongo();
 app.use(express.json())
 
+
 //Available routes
 app.use("/api/auth", authmerchantUser)
 

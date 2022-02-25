@@ -3,7 +3,9 @@ const router = express.Router();
 const merchantUser=require("../models/merchantUser")
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-
+var jwt = require('jsonwebtoken');
+let JWT_SECRET = "tushar457789"
+const fetchmerchantuser = require("../middleware/fetchmerchantuser")
 
 //user create route
 router.post("/register", [
@@ -30,8 +32,14 @@ router.post("/register", [
             email: req.body.email,
             password: securedpass
         });
-      
-        res.json(user)
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+        const authtoken = jwt.sign(data, JWT_SECRET);
+        res.json({ authtoken })
+
     } catch (err) {
         console.log(err.message)
         res.status(500).send("some error occured")
@@ -64,11 +72,30 @@ router.post("/login", [
                 return res.status(400).json({ error: "please try to login with correct credentials" })
             }
            
-            res.json("login successfully")
+            const data = {
+                user: {
+                    id: user.id
+                }
+            }
+            const authtoken = jwt.sign(data, JWT_SECRET)
+            res.json({ authtoken })
+
         } catch (err) {
             res.send(err)
         }
     })
 
+
+//get user data from database
+router.post("/getmerchantuser", fetchmerchantuser, async (req, res) => {
+    try {
+        userId = req.user.id
+        const user = await merchantUser.findById(userId).select("-password")
+        res.send(user)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("Internal server error")
+    }
+})
 
 module.exports=router
