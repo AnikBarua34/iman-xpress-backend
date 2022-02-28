@@ -13,7 +13,7 @@ router.post("/register", [
     body("email","email is invalid").isEmail(),
     body("password","password must be up to 5 character").isLength({ min: 6 }),
 ], async(req,res) => {
-   
+   console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
