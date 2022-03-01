@@ -13,7 +13,6 @@ app.use(express.json())
 app.use(cors())
 
 
-
 //Available routes
 app.use("/api/auth", authmerchantUser)
 app.use("/api/authRider", authRiderUser)

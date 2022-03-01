@@ -1,10 +1,12 @@
 var jwt = require('jsonwebtoken');
 let JWT_SECRET = "tushar457789"
-const fetchmerchantuser = (req, res, next) => {
-    
-    // merchant token from client side
+
+const fetchRider = (req, res, next) => {
+
+    // rider token from client side
     const token = req.body.headers.Authorization.split(" ")[1]
     console.log(token);
+    
     if (!token) {
         res.status(401).send({error:"please authenticate using a valid token"})
     }
@@ -18,4 +20,4 @@ const fetchmerchantuser = (req, res, next) => {
     }
     
 }
-module.exports = fetchmerchantuser;
+module.exports = fetchRider;
