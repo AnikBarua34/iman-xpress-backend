@@ -16,6 +16,24 @@ router.get("/fetchallproducts", fetchmerchantuser, async (req, res) => {
     
 })
 
+
+
+//fetch product by id from database
+router.get("/fetchproduct/:id", fetchmerchantuser, async (req, res) => {
+    try {
+        const products = await merchantProduct.find({ user: req.user.id })
+        let data = await products.find((el)=>el._id==req.params.id)
+        res.json(data)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+
+})
+
+
+
+
 //add product in database
 router.post("/addproduct", fetchmerchantuser, [
     body("productname", "Name must be up to 3 character").isLength({ min: 3 }),

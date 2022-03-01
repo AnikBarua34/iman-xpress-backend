@@ -38,7 +38,23 @@ router.get("/fetchblog", async (req, res) => {
 
     try {
         const blogdata = await blog.find({})
+       
+        
         res.json(blogdata)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+})
+
+
+//fetch blog  by id from database
+router.get("/fetchblog/:id", async (req, res) => {
+
+    try {
+        const blogdata = await blog.find({})
+        const blogdatabyid = await blogdata.find((el) => el._id ==req.params.id)
+        res.json(blogdatabyid)
     } catch (err) {
         console.log(err.message)
         res.status(500).send("some error occured")
