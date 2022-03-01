@@ -22,7 +22,7 @@ router.post("/addproduct", fetchmerchantuser, [
     body("productdescription", "description must be up to 3 character").isLength({ min: 10 }),
 ] ,async (req, res) => {
     
-    const {productname,productprice,productdescription}=req.body
+    const {productname,productprice,productdescription,productimage}=req.body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -30,7 +30,7 @@ router.post("/addproduct", fetchmerchantuser, [
 
     try {
         const productdata = new merchantProduct({
-            productname, productprice, productdescription, productimage:"https://i.postimg.cc/fRm7BzJB/lunch3.png",merchantid:req.user.id  
+            productname, productprice, productdescription, productimage,merchantid:req.user.id  
         })
 
         const saveproduct = await productdata.save()
@@ -47,7 +47,7 @@ router.post("/addproduct", fetchmerchantuser, [
 
 router.put("/updateproduct/:id", fetchmerchantuser, async(req,res) => {
     
-    const { productname, productprice, productdescription } = req.body
+    const { productname, productprice, productdescription,productimage } = req.body
     try {
         const newdata = {}
         if (productname) {
@@ -58,6 +58,10 @@ router.put("/updateproduct/:id", fetchmerchantuser, async(req,res) => {
         }
         if (productdescription) {
             newdata.productdescription = productdescription
+        }
+
+        if (productimage) {
+            newdata.productimage = productimage
         }
 
         let data = await merchantProduct.findById(req.params.id)
