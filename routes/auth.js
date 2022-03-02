@@ -29,8 +29,17 @@ router.post("/register", [
 
         user = await merchantUser.create({
             name: req.body.name,
+            mobileNumber: req.body.mobileNumber,
+            storeAddress: req.body.storeAddress,
+            faceBookLink: req.body.faceBookLink,
             email: req.body.email,
             password: securedpass
+//    name: 'ahmed',
+//   mobileNumber: '4435',
+//   storeAddress: 'b',
+//   faceBookLink: 'safsaf',
+//   email: 'ahmedasdf@a.com',
+//   password: 'asfdsaf'
         });
         const data = {
             user: {

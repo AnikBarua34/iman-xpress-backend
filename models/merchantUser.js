@@ -8,6 +8,18 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    mobileNumber: {
+        type: Number,
+        required: true
+    },
+    storeAddress: {
+        type: String,
+        required: true
+    },
+    faceBookLink: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
