@@ -2,7 +2,7 @@ const express = require("express")
 const app = express();
 require('dotenv').config()
 var cors = require('cors')
-const port = 8080 || process.env.PORT
+const port =process.env.PORT || 8080 
 
 const authmerchantUser = require("./routes/auth")
 const authRiderUser = require("./routes/authRider")
