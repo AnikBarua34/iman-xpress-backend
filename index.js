@@ -6,6 +6,7 @@ const port = 8080 || process.env.PORT
 
 const authmerchantUser = require("./routes/auth")
 const authRiderUser = require("./routes/authRider")
+const riderProfile = require("./routes/riderProfile")
 const merchantProduct = require("./routes/merchantproduct")
 
 const connecttoMongo = require("./db")
@@ -17,6 +18,7 @@ app.use(cors())
 //Available routes
 app.use("/api/auth", authmerchantUser)
 app.use("/api/authRider", authRiderUser)
+app.use("/api/riderProfile", riderProfile)
 app.use("/api/merchant", merchantProduct )
 
 
