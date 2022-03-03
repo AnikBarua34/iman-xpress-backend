@@ -4,10 +4,11 @@ const merchantProduct = require("../models/merchantProduct")
 const fetchmerchantuser = require("../middleware/fetchmerchantuser")
 const { body, validationResult } = require('express-validator');
 
-//fetchall product from database
+//fetch all product from database
 router.get("/fetchallproducts", fetchmerchantuser, async (req, res) => {
     try {
-        const products = await merchantProduct.find({ user: req.user.id })
+        console.log(req.user.id)
+        const products = await merchantProduct.find({ merchantid: req.user.id })
         res.json(products)
     } catch (err) {
         console.log(err.message)
@@ -21,7 +22,7 @@ router.get("/fetchallproducts", fetchmerchantuser, async (req, res) => {
 //fetch product by id from database
 router.get("/fetchproduct/:id", fetchmerchantuser, async (req, res) => {
     try {
-        const products = await merchantProduct.find({ user: req.user.id })
+        const products = await merchantProduct.find({ merchantid: req.user.id })
         let data = await products.find((el)=>el._id==req.params.id)
         res.json(data)
     } catch (err) {
