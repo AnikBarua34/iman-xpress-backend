@@ -7,9 +7,8 @@ const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cl
 const connectMongo = () => {
     mongoose.connect(mongoURI,{
         useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
+        useUnifiedTopology: true
+        
        
        
     }).then(() => console.log("Database connected!"))
