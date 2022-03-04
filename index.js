@@ -8,6 +8,7 @@ const authmerchantUser = require("./routes/auth")
 const authRiderUser = require("./routes/authRider")
 const merchantProduct = require("./routes/merchantproduct")
 const blogsection = require("./routes/blogSection")
+const authgeneraluser = require("./routes/generalAuth")
 
 const connecttoMongo = require("./db")
 connecttoMongo();
@@ -20,6 +21,7 @@ app.use("/api/auth", authmerchantUser)
 app.use("/api/merchant", merchantProduct)
 app.use("/api/blog",blogsection)
 app.use("/api/authRider", authRiderUser)
+app.use("/api/authgeneral", authgeneraluser)
 
 
 

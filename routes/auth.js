@@ -32,6 +32,8 @@ router.post("/register", [
             mobileNumber: req.body.mobileNumber,
             storeAddress: req.body.storeAddress,
             faceBookLink: req.body.faceBookLink,
+            category: req.body.category,
+            image: req.body.image,
             email: req.body.email,
             password: securedpass
 //    name: 'ahmed',
