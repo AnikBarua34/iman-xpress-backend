@@ -2,12 +2,13 @@ const express = require("express")
 const app = express();
 require('dotenv').config()
 var cors = require('cors')
-const port = 8080 || process.env.PORT
+const port =process.env.PORT || 8080 
 
 const authmerchantUser = require("./routes/auth")
 const authRiderUser = require("./routes/authRider")
 const riderProfile = require("./routes/riderProfile")
 const merchantProduct = require("./routes/merchantproduct")
+const blogsection = require("./routes/blogSection")
 
 const connecttoMongo = require("./db")
 connecttoMongo();
@@ -17,9 +18,12 @@ app.use(cors())
 
 //Available routes
 app.use("/api/auth", authmerchantUser)
+app.use("/api/merchant", merchantProduct)
+app.use("/api/blog",blogsection)
 app.use("/api/authRider", authRiderUser)
 app.use("/api/riderProfile", riderProfile)
-app.use("/api/merchant", merchantProduct )
+
+
 
 
 app.get("/", (req, res) => {

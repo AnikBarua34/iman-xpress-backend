@@ -7,7 +7,8 @@ const { body, validationResult } = require('express-validator');
 //fetch all product from database
 router.get("/fetchallproducts", fetchmerchantuser, async (req, res) => {
     try {
-        const products = await merchantProduct.find({ user: req.user.id })
+        console.log(req.user.id)
+        const products = await merchantProduct.find({ merchantid: req.user.id })
         res.json(products)
     } catch (err) {
         console.log(err.message)
@@ -16,13 +17,31 @@ router.get("/fetchallproducts", fetchmerchantuser, async (req, res) => {
     
 })
 
+
+
+//fetch product by id from database
+router.get("/fetchproduct/:id", fetchmerchantuser, async (req, res) => {
+    try {
+        const products = await merchantProduct.find({ merchantid: req.user.id })
+        let data = await products.find((el)=>el._id==req.params.id)
+        res.json(data)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+
+})
+
+
+
+
 //add product in database
 router.post("/addproduct", fetchmerchantuser, [
     body("productname", "Name must be up to 3 character").isLength({ min: 3 }),
     body("productdescription", "description must be up to 3 character").isLength({ min: 10 }),
 ] ,async (req, res) => {
     
-    const {productname,productprice,productdescription}=req.body
+    const {productname,productprice,productdescription,productimage}=req.body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -30,7 +49,7 @@ router.post("/addproduct", fetchmerchantuser, [
 
     try {
         const productdata = new merchantProduct({
-            productname, productprice, productdescription, productimage:"https://i.postimg.cc/fRm7BzJB/lunch3.png",merchantid:req.user.id  
+            productname, productprice, productdescription, productimage,merchantid:req.user.id  
         })
 
         const saveproduct = await productdata.save()
@@ -47,7 +66,7 @@ router.post("/addproduct", fetchmerchantuser, [
 
 router.put("/updateproduct/:id", fetchmerchantuser, async(req,res) => {
     
-    const { productname, productprice, productdescription } = req.body
+    const { productname, productprice, productdescription,productimage } = req.body
     try {
         const newdata = {}
         if (productname) {
@@ -58,6 +77,10 @@ router.put("/updateproduct/:id", fetchmerchantuser, async(req,res) => {
         }
         if (productdescription) {
             newdata.productdescription = productdescription
+        }
+
+        if (productimage) {
+            newdata.productimage = productimage
         }
 
         let data = await merchantProduct.findById(req.params.id)

@@ -3,7 +3,9 @@ let JWT_SECRET = "tushar457789"
 const fetchmerchantuser = (req, res, next) => {
     
     // merchant token from client side
-    const token = req.body.headers.Authorization.split(" ")[1]
+   
+    const token = req.header("auth-token")
+    console.log(token)
     console.log(token);
     if (!token) {
         res.status(401).send({error:"please authenticate using a valid token"})

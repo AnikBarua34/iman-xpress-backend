@@ -95,7 +95,7 @@ router.post("/login",
 
     //get user data from database
 router.post("/getRider", fetchRider, async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     try {
         userId = req.user.id
         const user = await Rider.findById(userId).select("-password")
