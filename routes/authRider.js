@@ -5,10 +5,12 @@ const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const fetchRider = require("../middleware/fetchRider");
+const { query } = require("express");
 let JWT_SECRET = 'tushar457789'
 
 // DB_USER=imanxpress
 // DB_PASS=2jRa9Z0DfNlvvDsS
+
 
 // Rider Register post
 router.post("/register", [
@@ -34,11 +36,8 @@ router.post("/register", [
             fname: req.body.fname,
             lname: req.body.lname,
             mobile: req.body.mobile,
-            city: req.body.city,
-            bikeRider: req.body.bikeRider,
-            foodDelivery: req.body.foodDelivery,
-            parcelDelivery: req.body.parcelDelivery,
-            medicineDelivery: req.body.medicineDelivery,
+            address: req.body.address,
+            riderState: req.body.riderState,            
             email: req.body.email,
             password: hashSecuredPass
         });
@@ -96,7 +95,7 @@ router.post("/login",
 
     //get user data from database
 router.post("/getRider", fetchRider, async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     try {
         userId = req.user.id
         const user = await Rider.findById(userId).select("-password")
@@ -107,4 +106,6 @@ router.post("/getRider", fetchRider, async (req, res) => {
         res.status(500).send("Internal server error")
     }
 })
+
+
 module.exports = router

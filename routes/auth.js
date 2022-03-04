@@ -7,6 +7,8 @@ var jwt = require('jsonwebtoken');
 let JWT_SECRET = "tushar457789"
 const fetchmerchantuser = require("../middleware/fetchmerchantuser")
 
+
+
 //user create route
 router.post("/register", [
     body("name","Name must be up to 3 character").isLength({ min: 3 }),

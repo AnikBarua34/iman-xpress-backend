@@ -13,21 +13,17 @@ const RiderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    city: {
+    address: {
         type: String,
         required: true
     },
-    bikeRider: {
-        type: String,       
+    riderState: {
+        type: String, 
+        required: true
     },
-    foodDelivery: {
-        type: String,        
-    },
-    parcelDelivery: {
-        type: String,       
-    },
-    medicineDelivery: {
-        type: String,        
+    image: {
+        type: String,
+       
     },
     email: {
         type: String,
@@ -36,6 +32,10 @@ const RiderSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 })
 

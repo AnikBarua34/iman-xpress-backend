@@ -6,6 +6,7 @@ const port =process.env.PORT || 8080
 
 const authmerchantUser = require("./routes/auth")
 const authRiderUser = require("./routes/authRider")
+const riderProfile = require("./routes/riderProfile")
 const merchantProduct = require("./routes/merchantproduct")
 const blogsection = require("./routes/blogSection")
 const authgeneraluser = require("./routes/generalAuth")
@@ -22,6 +23,8 @@ app.use("/api/merchant", merchantProduct)
 app.use("/api/blog",blogsection)
 app.use("/api/authRider", authRiderUser)
 app.use("/api/authgeneral", authgeneraluser)
+app.use("/api/riderProfile", riderProfile)
+
 
 
 

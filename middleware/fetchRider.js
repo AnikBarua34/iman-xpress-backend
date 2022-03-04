@@ -4,8 +4,9 @@ let JWT_SECRET = "tushar457789"
 const fetchRider = (req, res, next) => {
 
     // rider token from client side
-    const token = req.body.headers.Authorization.split(" ")[1]
-    console.log(token);
+    const token = req.header("Authorization")
+    // console.log("token", token);
+  
     
     if (!token) {
         res.status(401).send({error:"please authenticate using a valid token"})
@@ -14,6 +15,7 @@ const fetchRider = (req, res, next) => {
         const data = jwt.verify(token, JWT_SECRET)
         console.log(data)
         req.user = data.user
+        // console.log('user',req.user);
         next()  
     } catch (err) {
         res.status(401).send({ error: "please authenticate using a valid token" }) 
