@@ -32,6 +32,24 @@ router.get("/fetchproduct/:id", fetchmerchantuser, async (req, res) => {
 
 })
 
+//fetch all product by merchant id from database
+router.get("/fetchallproductsbyid/:id", async (req, res) => {
+    const id = req.params.id
+    try {
+        const products = await merchantProduct.find({ merchantid:id })
+        
+        res.json(products)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+
+})
+
+
+
+
+
 
 
 

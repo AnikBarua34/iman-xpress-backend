@@ -111,4 +111,28 @@ router.post("/getmerchantuser", fetchmerchantuser, async (req, res) => {
     }
 })
 
+//get user data from database
+router.get("/getmerchantuser/:id", async (req, res) => {
+    try {
+        userId = req.params.id
+        const user = await merchantUser.findById(userId).select("-password")
+        res.send(user)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("Internal server error")
+    }
+})
+
+//get user data by category from database
+router.get("/getmerchantuserbycategory/:category",async (req, res) => {
+    try {
+        const category= req.params.category
+        const user = await merchantUser.find({category:category}).select("-password")
+        res.send(user)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("Internal server error")
+    }
+})
+
 module.exports=router
