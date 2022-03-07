@@ -98,6 +98,29 @@ router.post("/login", [
         }
     })
 
+//update merchant profile
+router.put("/updateprofile/:id", async (req, res) => {
+
+    const mydata = req.body
+    console.log(mydata)
+    try {
+        
+
+        let data = await merchantUser.findById(req.params.id)
+        if (!data) {
+            return res.status(401).send("Not found")
+        }
+
+
+        let updateprofile= await merchantUser.findByIdAndUpdate(req.params.id, { $set: mydata }, { new: true })
+        res.json({updateprofile})
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+
+})
+
 
 //get user data from database
 router.post("/getmerchantuser", fetchmerchantuser, async (req, res) => {
