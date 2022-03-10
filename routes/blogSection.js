@@ -10,7 +10,7 @@ router.post("/addblog", [
     body("description", "description must be up to 10 character").isLength({ min: 10 }),
 ], async (req, res) => {
 
-    const { title, description, image, time } = req.body
+    const { title, description, image,category, time } = req.body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -18,7 +18,7 @@ router.post("/addblog", [
 
     try {
         const blogdata = new blog({
-            title, description, image, time
+            title, description, image,category,time
         })
 
         const blogadd = await blogdata.save()
