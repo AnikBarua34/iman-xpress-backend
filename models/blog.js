@@ -19,6 +19,10 @@ const BlogSchema = new Schema({
         required: true
 
     },
+    category: {
+        type: String,
+        required: true
+    },
     time: {
         type: String,
         required: true
