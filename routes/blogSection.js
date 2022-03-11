@@ -62,12 +62,12 @@ router.get("/fetchblog/:id", async (req, res) => {
 })
 
 
-//fetch blog  by id from database
+//fetch blog  by category from database
 router.get("/fetchblogbycategory/:category", async (req, res) => {
 
     try {
         const blogdata = await blog.find({})
-        const blogdatabyid = await blogdata.find((el) => el.category == req.params.category)
+        const blogdatabyid = await blogdata.filter((el) => el.category == req.params.category)
         res.json(blogdatabyid)
     } catch (err) {
         console.log(err.message)
