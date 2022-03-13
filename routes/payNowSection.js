@@ -25,10 +25,10 @@ router.post('/init', async (req, res) => {
         cus_postcode: req.body.cus_postcode,
         streetAddress: req.body.streetAddress,
         currency: 'BDT',
-        success_url: 'http://localhost:8080/api/payNow/success',
-        fail_url: 'http://localhost:8080/api/payNow/fail',
-        cancel_url: 'http://localhost:8080/api/payNow/cancel',
-        ipn_url: 'http://localhost:8080/api/payNow/ipn',
+        success_url: 'https://iman-xpress.herokuapp.com/api/payNow/success',
+        fail_url: 'https://iman-xpress.herokuapp.com/api/payNow/fail',
+        cancel_url: 'https://iman-xpress.herokuapp.com/api/payNow/cancel',
+        ipn_url: 'https://iman-xpress.herokuapp.com/api/payNow/ipn',
         shipping_method: 'Courier',
         product_name: 'none',
         product_image: 'none',
@@ -79,15 +79,15 @@ router.post('/success', async (req, res) => {
         }
     })
     console.log(req.body.val_id);
-    res.status(200).redirect(`http://localhost:3000/success/${req.body.tran_id}`)
+    res.status(200).redirect(`https://iman-xpress.netlify.app/success/${req.body.tran_id}`)
 })
 router.post('/fail', async (req, res) => {
     const orders = await order.deleteOne({ tran_id: req.body.tran_id })
-    res.status(400).redirect(`http://localhost:3000/failed`)
+    res.status(400).redirect(`https://iman-xpress.netlify.app/failed`)
 })
 router.post('/cancel', async (req, res) => {
     const orders = await order.deleteOne({ tran_id: req.body.tran_id })
-    res.status(200).redirect(`http://localhost:3000/`)
+    res.status(200).redirect(`https://iman-xpress.netlify.app/`)
 })
 router.post('/validate', async (req, res) => {
     console.log(req.body);
