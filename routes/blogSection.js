@@ -84,6 +84,20 @@ router.get("/fetchblogbycategory/:category", async (req, res) => {
     }
 })
 
+
+//fetch blog  by category from database
+// router.get("/fetchblogbycategory/:category", async (req, res) => {
+
+//     try {
+//         const blogdata = await blog.find({})
+//         const blogdatabyid = await blogdata.filter((el) => el.category == req.params.category)
+//         res.json(blogdatabyid)
+//     } catch (err) {
+//         console.log(err.message)
+//         res.status(500).send("some error occured")
+//     }
+// })
+
 //delete blog in database
 router.delete("/deleteblog/:id", async (req, res) => {
 
