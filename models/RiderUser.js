@@ -1,50 +1,44 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const { default: mongoose } = require("mongoose");
 
-const UserSchema = new Schema({
-   
-  
-    name: {
+const RiderSchema = new mongoose.Schema({
+    fname: {
         type: String,
         required: true
     },
-    mobileNumber: {
-        type: Number,
-        required: true
-    },
-    storeAddress: {
+    lname: {
         type: String,
         required: true
     },
-    faceBookLink: {
+    mobile: {
         type: String,
         required: true
     },
-    category: {
+    address: {
         type: String,
+        required: true
+    },
+    riderState: {
+        type: String, 
         required: true
     },
     image: {
         type: String,
-        required: true
+       
     },
     email: {
         type: String,
-        required: true,
-        unique: true
+        required:true
     },
     password: {
         type: String,
         required: true
     },
-    
     date: {
         type: Date,
         default: Date.now
     }
-});
+})
 
-const merchantUser = mongoose.model('Merchantuser', UserSchema);
-module.exports = merchantUser;
+const Rider = new mongoose.model("Rider", RiderSchema)
 
-
+module.exports = Rider;

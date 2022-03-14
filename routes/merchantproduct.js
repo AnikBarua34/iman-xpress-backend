@@ -4,10 +4,11 @@ const merchantProduct = require("../models/merchantProduct")
 const fetchmerchantuser = require("../middleware/fetchmerchantuser")
 const { body, validationResult } = require('express-validator');
 
-//fetchall product from database
+//fetch all product from database
 router.get("/fetchallproducts", fetchmerchantuser, async (req, res) => {
     try {
-        const products = await merchantProduct.find({ user: req.user.id })
+        console.log(req.user.id)
+        const products = await merchantProduct.find({ merchantid: req.user.id })
         res.json(products)
     } catch (err) {
         console.log(err.message)
@@ -21,7 +22,7 @@ router.get("/fetchallproducts", fetchmerchantuser, async (req, res) => {
 //fetch product by id from database
 router.get("/fetchproduct/:id", fetchmerchantuser, async (req, res) => {
     try {
-        const products = await merchantProduct.find({ user: req.user.id })
+        const products = await merchantProduct.find({ merchantid: req.user.id })
         let data = await products.find((el)=>el._id==req.params.id)
         res.json(data)
     } catch (err) {
@@ -30,6 +31,61 @@ router.get("/fetchproduct/:id", fetchmerchantuser, async (req, res) => {
     }
 
 })
+
+//fetch product by id from database
+router.get("/fetchproductbyid/:id", async (req, res) => {
+    try {
+        const product = await merchantProduct.find({ _id: req.params.id })
+       
+        res.json(product)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+
+})
+
+//fetch all product by merchant id from database
+router.get("/fetchallproductsbyid/:id", async (req, res) => {
+    const id = req.params.id
+    try {
+        const products = await merchantProduct.find({ merchantid:id })
+        
+        res.json(products)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+
+})
+
+
+router.post("/getproductbyname/:id", async (req, res) => {
+    const id = req.params.id
+    const dataname = (req.body.searchproduct).toLowerCase()
+    try {
+       
+        const products = await merchantProduct.find({ merchantid: id, productname: { $regex: '.*' + dataname + '.*' }
+})
+       
+        if (products.length!=0) {
+           
+            res.json({products})
+        } else {
+           
+            res.json({products, not: "Not found" })
+        }
+        
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+
+})
+
+
+
+
 
 
 

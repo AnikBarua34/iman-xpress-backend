@@ -21,7 +21,6 @@ router.post("/addblog", [
 ], async (req, res) => {
 
     const { title, description, image,category, time } = req.body
-    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -70,11 +69,14 @@ router.get("/fetchblog/:id", async (req, res) => {
         res.status(500).send("some error occured")
     }
 })
-router.get("/fetchblog/:category", async (req, res) => {
-
+// fetch blog  by category from database
+router.get("/fetchblogbycategory/:category", async (req, res) => {
     try {
-        const blogdata = await blog.find({})
-        const blogdatabyid = await blogdata.find((el) => el.category ==req.params.category)
+        const blogCategory = req.params.category;
+        const query = {category: blogCategory}
+        const blogdatabyid = await blog.find(query)
+        // const blogdatabyid = await cursor.toArray()
+        // const blogdatabyid = await blogdata.find((el) => el.category == req.params.category)
         res.json(blogdatabyid)
     } catch (err) {
         console.log(err.message)
