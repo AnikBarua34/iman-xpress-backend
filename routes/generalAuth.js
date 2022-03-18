@@ -33,5 +33,30 @@ router.get("/getuserdata/:email", async (req, res) => {
 })
 
 
+router.get("/getallusers", async (req, res) => {
+    try {
+
+        const allusers= await general.find({role:"viewer"})
+
+        res.json({ allusers: allusers })
+    } catch (err) {
+
+        res.status(500).send("Internal server error")
+    }
+})
+
+router.get("/getuserbyid/:id", async (req, res) => {
+    try {
+     
+        const userinfo = await general.findById(req.params.id).select("-password")
+      
+        res.json({userdata:userinfo})
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("Internal server error")
+    } 
+})
+
+
 
 module.exports = router
