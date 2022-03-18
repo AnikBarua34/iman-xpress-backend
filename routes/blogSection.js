@@ -5,6 +5,16 @@ const { body, validationResult } = require('express-validator');
 
 
 //add blog in database
+// [
+//     body("title", "Name must be up to 8 character").isLength({ min: 8 }),
+//     body("description", "description must be up to 10 character").isLength({ min: 10 }),
+// ],
+
+// const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//     }
+
 router.post("/addblog", [
     body("title", "Name must be up to 8 character").isLength({ min: 8 }),
     body("description", "description must be up to 10 character").isLength({ min: 10 }),
@@ -30,7 +40,6 @@ router.post("/addblog", [
         res.status(500).send("some error occured")
     }
 })
-
 
 
 //fetch blog in database
@@ -60,20 +69,34 @@ router.get("/fetchblog/:id", async (req, res) => {
         res.status(500).send("some error occured")
     }
 })
-
-
-//fetch blog  by category from database
+// fetch blog  by category from database
 router.get("/fetchblogbycategory/:category", async (req, res) => {
-
     try {
-        const blogdata = await blog.find({})
-        const blogdatabyid = await blogdata.filter((el) => el.category == req.params.category)
+        const blogCategory = req.params.category;
+        const query = {category: blogCategory}
+        const blogdatabyid = await blog.find(query)
+        // const blogdatabyid = await cursor.toArray()
+        // const blogdatabyid = await blogdata.find((el) => el.category == req.params.category)
         res.json(blogdatabyid)
     } catch (err) {
         console.log(err.message)
         res.status(500).send("some error occured")
     }
 })
+
+
+//fetch blog  by category from database
+// router.get("/fetchblogbycategory/:category", async (req, res) => {
+
+//     try {
+//         const blogdata = await blog.find({})
+//         const blogdatabyid = await blogdata.filter((el) => el.category == req.params.category)
+//         res.json(blogdatabyid)
+//     } catch (err) {
+//         console.log(err.message)
+//         res.status(500).send("some error occured")
+//     }
+// })
 
 //delete blog in database
 router.delete("/deleteblog/:id", async (req, res) => {
@@ -92,7 +115,7 @@ router.delete("/deleteblog/:id", async (req, res) => {
 
 router.put("/updateblog/:id", async (req, res) => {
 
-    const { title, description, image } = req.body
+    const { title, description, image, category } = req.body
     try {
         const newdata = {}
         if (title) {
@@ -103,6 +126,9 @@ router.put("/updateblog/:id", async (req, res) => {
         }
         if (image) {
             newdata.image = image
+        }
+        if (category) {
+            newdata.category = category
         }
 
         let data = await blog.findById(req.params.id)
