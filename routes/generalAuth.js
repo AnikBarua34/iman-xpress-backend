@@ -26,7 +26,7 @@ router.post("/saveuser", async (req, res) => {
 
 router.get("/getuserdata/:email", async (req, res) => {
     const myemail=req.params.email
-console.log(myemail)
+
     user = await general.findOne({ email: myemail })
     
     res.json(user)

@@ -120,5 +120,31 @@ router.post("/updateImage/:email",  async (req, res) => {
     
 })
 
+//get riders by id
+router.get("/getriderbyid/:id", async (req, res) => {
+    try {
+     
+        const riderinfo = await Rider.findById(req.params.id).select("-password")
+      
+        res.json({rider:riderinfo})
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("Internal server error")
+    } 
+})
+
+//get all riders
+router.get("/getallriders", async (req, res) => {
+    try {
+     
+        const allrider = await Rider.find({}).select("-password")
+        
+        res.json({riders:allrider})
+    } catch (err) {
+       
+        res.status(500).send("Internal server error")
+    } 
+})
+
 
 module.exports = router;

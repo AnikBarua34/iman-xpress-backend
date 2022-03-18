@@ -6,6 +6,8 @@ const order = require("../models/order")
 
 
 
+
+
 // payment initialization 
 router.post('/init', async (req, res) => {
     console.log(req.body);
@@ -112,5 +114,8 @@ router.get('/orders/:tran_id', async (req, res) => {
 
     res.json(orders)
 })
+
+
+
 
 module.exports = router
