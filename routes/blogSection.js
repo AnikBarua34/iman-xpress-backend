@@ -4,16 +4,6 @@ const blog = require("../models/blog")
 const { body, validationResult } = require('express-validator');
 
 
-//add blog in database
-// [
-//     body("title", "Name must be up to 8 character").isLength({ min: 8 }),
-//     body("description", "description must be up to 10 character").isLength({ min: 10 }),
-// ],
-
-// const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//         return res.status(400).json({ errors: errors.array() });
-//     }
 
 router.post("/addblog", [
     body("title", "Name must be up to 8 character").isLength({ min: 8 }),
