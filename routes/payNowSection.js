@@ -7,6 +7,59 @@ const order = require("../models/order")
 
 
 
+// get order by email 
+router.get("/orders/:email", async (req, res) => {
+
+    try {
+        const ordersdata = await order.find({})
+        const ordersdatabyemail = ordersdata.filter((el) => el.cus_email ==req.params.email)
+        res.json(ordersdatabyemail)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+})
+// get all orders 
+router.get("/allorders", async (req, res) => {
+
+    try {
+        const allordersdata = await order.find({})
+        res.json(allordersdata)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+})
+
+// Delete Order by ID 
+// router.delete('/allorders:id', async (req,res)=>{
+// const id = req.params.id;
+// const query ={_id:ObjectId(id)};
+// const result = await order.deleteOne(query);
+// console.log('Deleting with id',id);
+// res.send(result);
+
+
+// })
+// router.delete('/allorders/:id', async(req,res)=>{
+//     const id=req.params.id;
+//     console.log(id)
+//     const query={_id:id};
+//     console.log(query)
+//     const result= await order.deleteOne(query);
+//     console.log('Deleting with id',id)
+//     res.send(result);
+// })
+router.delete("/deleteorders/:id", async (req, res) => {
+console.log(req.params.id)
+    try {
+        const orderdata = await order.findByIdAndDelete(req.params.id)
+        res.json({success:"Order deleted successfully"})
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+})
 
 // payment initialization 
 router.post('/init', async (req, res) => {
@@ -81,15 +134,15 @@ router.post('/success', async (req, res) => {
         }
     })
     console.log(req.body.val_id);
-    res.status(200).redirect(`https://iman-xpress.netlify.app/success/${req.body.tran_id}`)
+    res.status(200).redirect(`https://iman-xpress-9b3a9.web.app/success/${req.body.tran_id}`)
 })
 router.post('/fail', async (req, res) => {
     const orders = await order.deleteOne({ tran_id: req.body.tran_id })
-    res.status(400).redirect(`https://iman-xpress.netlify.app/failed`)
+    res.status(400).redirect(`https://iman-xpress-9b3a9.web.app/failed`)
 })
 router.post('/cancel', async (req, res) => {
     const orders = await order.deleteOne({ tran_id: req.body.tran_id })
-    res.status(200).redirect(`https://iman-xpress.netlify.app/`)
+    res.status(200).redirect(`https://iman-xpress-9b3a9.web.app/`)
 })
 router.post('/validate', async (req, res) => {
     console.log(req.body);
