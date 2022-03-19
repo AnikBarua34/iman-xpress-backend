@@ -8,7 +8,7 @@ const order = require("../models/order")
 
 
 // get order by email 
-router.get("/orders/:email", async (req, res) => {
+router.get("/ordersbyemail/:email", async (req, res) => {
 
     try {
         const ordersdata = await order.find({})
