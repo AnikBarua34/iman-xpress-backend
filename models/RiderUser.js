@@ -34,7 +34,7 @@ const RiderSchema = new mongoose.Schema({
         required: true
     },
     login_status: {
-        type: String,
+        type: Number,
         default:0 
     },
     date: {
