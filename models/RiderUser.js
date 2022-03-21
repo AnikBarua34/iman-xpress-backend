@@ -33,6 +33,10 @@ const RiderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    login_status: {
+        type: String,
+        default:0 
+    },
     date: {
         type: Date,
         default: Date.now
