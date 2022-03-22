@@ -108,4 +108,31 @@ router.post("/getRider", fetchRider, async (req, res) => {
 })
 
 
+
+router.put("/updateloginstatus/:email", async (req, res) => {
+
+
+  await Rider.updateOne({ email: req.params.email }, {
+            $set: {
+                login_status:1
+            }
+        })
+    
+    res.json({change:"ok"})
+
+})
+
+router.put("/updateloginstatuswhenlogout/:email", async (req, res) => {
+
+    await Rider.updateOne({ email: req.params.email }, {
+        $set: {
+            login_status: 0
+        }
+    })
+
+    res.json({ change: "ok" })
+
+})
+
+
 module.exports = router
