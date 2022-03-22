@@ -31,25 +31,6 @@ router.get("/allorders", async (req, res) => {
     }
 })
 
-// Delete Order by ID 
-// router.delete('/allorders:id', async (req,res)=>{
-// const id = req.params.id;
-// const query ={_id:ObjectId(id)};
-// const result = await order.deleteOne(query);
-// console.log('Deleting with id',id);
-// res.send(result);
-
-
-// })
-// router.delete('/allorders/:id', async(req,res)=>{
-//     const id=req.params.id;
-//     console.log(id)
-//     const query={_id:id};
-//     console.log(query)
-//     const result= await order.deleteOne(query);
-//     console.log('Deleting with id',id)
-//     res.send(result);
-// })
 router.delete("/deleteorders/:id", async (req, res) => {
 console.log(req.params.id)
     try {
