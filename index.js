@@ -15,6 +15,7 @@ const partnerSection = require("./routes/partnerSection")
 const payNowSection = require("./routes/payNowSection")
 
 
+
 const connecttoMongo = require("./db")
 connecttoMongo();
 app.use(express.json())
@@ -29,10 +30,8 @@ app.use("/api/blog",blogsection)
 app.use("/api/authRider", authRiderUser)
 app.use("/api/authgeneral", authgeneraluser)
 app.use("/api/riderProfile", riderProfile)
-
 app.use("/api/partner", partnerSection)
 app.use("/api/payNow", payNowSection)
-
 
 
 app.get("/", (req, res) => {

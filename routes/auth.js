@@ -133,6 +133,16 @@ router.post("/getmerchantuser", fetchmerchantuser, async (req, res) => {
         res.status(500).send("Internal server error")
     }
 })
+router.get("/getmerchantuser",async (req, res) => {
+    try {
+        
+        const user = await merchantUser.find({})
+        res.send(user)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("Internal server error")
+    }
+})
 
 //get user data from database
 router.get("/getmerchantuser/:id", async (req, res) => {
