@@ -31,25 +31,19 @@ router.get("/allorders", async (req, res) => {
     }
 })
 
-// Delete Order by ID 
-// router.delete('/allorders:id', async (req,res)=>{
-// const id = req.params.id;
-// const query ={_id:ObjectId(id)};
-// const result = await order.deleteOne(query);
-// console.log('Deleting with id',id);
-// res.send(result);
+// get orders by merchants id 
+router.get("/getordersbymerchantid/:id", async (req, res) => {
+
+    try {
+        const allordersdata = await order.find({merchant_id:req.params.id})
+        res.json(allordersdata)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send("some error occured")
+    }
+})
 
 
-// })
-// router.delete('/allorders/:id', async(req,res)=>{
-//     const id=req.params.id;
-//     console.log(id)
-//     const query={_id:id};
-//     console.log(query)
-//     const result= await order.deleteOne(query);
-//     console.log('Deleting with id',id)
-//     res.send(result);
-// })
 router.delete("/deleteorders/:id", async (req, res) => {
 console.log(req.params.id)
     try {
