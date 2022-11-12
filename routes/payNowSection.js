@@ -38,6 +38,15 @@ router.get("/getordersbymerchantid/:id", async (req, res) => {
     res.status(500).send("some error occured");
   }
 });
+router.get("/getordersbyid/:id", async (req, res) => {
+  try {
+    const allordersdata = await order.find({ _id: req.params.id });
+    res.json(allordersdata);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("some error occured");
+  }
+});
 
 router.delete("/deleteorders/:id", async (req, res) => {
   console.log(req.params.id);
