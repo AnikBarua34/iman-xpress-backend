@@ -161,15 +161,15 @@ router.post("/success", async (req, res) => {
   console.log(req.body.val_id);
   res
     .status(200)
-    .redirect(`https://imanxpress247.netlify.app/success/${req.body.tran_id}`);
+    .redirect(`https://imanxpress247.web.app/success/${req.body.tran_id}`);
 });
 router.post("/fail", async (req, res) => {
   const orders = await order.deleteOne({ tran_id: req.body.tran_id });
-  res.status(400).redirect(`https://imanxpress247.netlify.app/failed`);
+  res.status(400).redirect(`https://imanxpress247.web.app/failed`);
 });
 router.post("/cancel", async (req, res) => {
   const orders = await order.deleteOne({ tran_id: req.body.tran_id });
-  res.status(200).redirect(`https://imanxpress247.netlify.app/`);
+  res.status(200).redirect(`https://imanxpress247.web.app/`);
 });
 router.post("/validate", async (req, res) => {
   console.log(req.body);
